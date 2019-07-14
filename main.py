@@ -15,7 +15,7 @@ def randomCard():
     return Card(randint(1, 10))
 
 def play_again():
-    again = input("Do you want to play again? \n")
+    again = input("\nDo you want to play again? \n")
     if again == "Yes" or again == "yes":
         main()
     elif again == "No" or again == "no":
@@ -49,7 +49,7 @@ def main():
 
     player1sum = sum(player1)
     player2sum = sum(player2)
-    print("\nPlayer 1:", player1sum, "\nPlayer 2:", player2sum)
+    print("\nPlayer 1:", player1sum, "\nPlayer 2:", player2sum, "\n")
 
     if (player1sum <= 21) and (player2sum > 21):
         print("Player 1 Wins")
@@ -65,7 +65,7 @@ def main():
         print("Player 1 Wins")
     elif player2sum > player1sum:
         print("Player 2 Wins")
-
+    play_again()
 
 
 
