@@ -1,18 +1,21 @@
 from random import randint
-
+ranks = {"Ace":1, "2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8, "9":9, "10":10, "King":10, "Queen":10, "Jack":10}
+Suits = ["S", "H", "D", "C"]
 class Card:
     def __init__(self, rank):
         self.rank = rank
     def __repr__(self):
         return str(self.rank)
+    def val(self):
+        return ranks[self.rank]
     def __add__(self, other):
-        return Card(self.rank + other.rank)
+        return Card(self.val() + other.val())
     def __radd__(self, other):
-        return other + self.rank
-
+        return other + self.val()
 
 def randomCard():
-    return Card(randint(1, 10))
+    return Card(list(ranks.keys())[randint(0, 12)])
+
 
 def play_again():
     again = input("\nDo you want to play again? \n")
@@ -24,33 +27,36 @@ def play_again():
 def main():
     player1 = []
     player2 = []
-    game = 0
-    turn = True
-    while game < 2:
-        while turn == True:
-            a = input("Player 1's turn: \n")
-            if a == "hit me":
-                player1.append(randomCard())
-                print("Player 1's cards:", player1,"\n")
-                turn = False
-                game = 0
-            elif a == "pass":
-                turn = False
-                game +=1
-        while turn == False:
-            b = input("Player 2's turn: \n")
-            if b == "hit me":
-                player2.append(randomCard())
-                print("Player 2's cards:", player2,"\n")
-                turn = True
-            elif b == "pass":
-                turn = True
-                game+=1
+    player1Turn = True
+    player2Turn = True
+    while player1Turn or player2Turn:
+            if player1Turn:
+                a = input("Player 1's turn: \n")
+                if a == "hit me":
+                    player1.append(randomCard())
+                    print("Player 1's cards:", player1,"\n")
+                    player1sum = sum(player1)
+                    if player1sum > 21:
+                        break
+                elif a == "pass":
+                    player1Turn = False
+
+            if player2Turn:
+                b = input("Player 2's turn: \n")
+                if b == "hit me":
+                    player2.append(randomCard())
+                    print("Player 2's cards:", player2,"\n")
+                    player2sum = sum(player2)
+                    if player2sum > 21:
+                        break
+                elif b == "pass":
+                    player2Turn = False
 
     player1sum = sum(player1)
     player2sum = sum(player2)
     print("\nPlayer 1:", player1sum, "\nPlayer 2:", player2sum, "\n")
 
+    # probably be in a function
     if (player1sum <= 21) and (player2sum > 21):
         print("Player 1 Wins")
     elif (player1sum > 21) and (player2sum <= 21):
