@@ -16,6 +16,18 @@ class Card:
 def randomCard():
     return Card(list(ranks.keys())[randint(0, 12)])
 
+def compare(p1, p2):
+    if p1 == p2:
+        return "It's a tie"
+    elif p1 == 21 and p2 != 21:
+        return "Player 1 Wins"
+    elif p1 != 21 and p2 == 21:
+        return "Player 2 Wins"
+    elif p1 > p2:
+        return "Player 1 Wins"
+    elif p2 > p1:
+        return "Player 2 Wins"
+
 
 def play_again():
     again = input("\nDo you want to play again? \n")
@@ -23,7 +35,6 @@ def play_again():
         main()
     elif again == "No" or again == "no":
         exit()
-
 def main():
     player1 = []
     player2 = []
@@ -55,24 +66,8 @@ def main():
     player1sum = sum(player1)
     player2sum = sum(player2)
     print("\nPlayer 1:", player1sum, "\nPlayer 2:", player2sum, "\n")
-
-    # probably be in a function
-    if (player1sum <= 21) and (player2sum > 21):
-        print("Player 1 Wins")
-    elif (player1sum > 21) and (player2sum <= 21):
-        print("Player 2 Wins")
-    elif player1sum == player2sum:
-        print("It's a tie")
-    elif player1sum == 21 and player2sum != 21:
-        print("Player 1 Wins")
-    elif player1sum != 21 and player2sum == 21:
-        print("Player 2 Wins")
-    elif player1sum > player2sum:
-        print("Player 1 Wins")
-    elif player2sum > player1sum:
-        print("Player 2 Wins")
+    print(compare(player1sum, player2sum))
     play_again()
-
 
 
 

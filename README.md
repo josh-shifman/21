@@ -23,5 +23,5 @@ def compare(player1, player2):
         return <string>
 def main():
     ... 
-    print(compare(player1, player2))
+    print(compare(player1, player2))````
 ```
